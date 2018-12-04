@@ -1,0 +1,23 @@
+/build/
+/out/
+# Compiled class files
+*.class
+
+# Log Files
+*.log
+
+# About IntelliJ
+*.iml
+/.idea/
+# Package Files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+/gradle/
+/.gradle/
+*.swp
+
