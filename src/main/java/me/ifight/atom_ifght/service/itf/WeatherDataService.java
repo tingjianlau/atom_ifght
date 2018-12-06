@@ -1,4 +1,4 @@
-package me.ifight.atom_ifght.service.inter;
+package me.ifight.atom_ifght.service.itf;
 
 import me.ifight.atom_ifght.model.weather.WeatherResponse;
 

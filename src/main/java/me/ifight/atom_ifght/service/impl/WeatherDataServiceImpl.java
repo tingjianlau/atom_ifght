@@ -2,7 +2,7 @@ package me.ifight.atom_ifght.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.ifight.atom_ifght.model.weather.WeatherResponse;
-import me.ifight.atom_ifght.service.inter.WeatherDataService;
+import me.ifight.atom_ifght.service.itf.WeatherDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
