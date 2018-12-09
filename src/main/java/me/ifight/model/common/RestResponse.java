@@ -46,6 +46,14 @@ public class RestResponse {
         return restResponse;
     }
 
+    public static RestResponse fail(String message) {
+        RestResponse restResponse = new RestResponse();
+        restResponse.setCode(ResultCode.FAIL.code());
+        restResponse.setMessage(message);
+
+        return restResponse;
+    }
+
     public static RestResponse fail(ResultCode resultCode, Object data) {
         RestResponse restResponse = new RestResponse();
         restResponse.setResultCode(resultCode);
@@ -71,7 +79,15 @@ public class RestResponse {
         return code;
     }
 
+    public void setCode(int code) {
+        this.code = code;
+    }
+
     public String getMessage() {
         return message;
+    }
+
+    public void setMessage(String message){
+        this.message = message;
     }
 }
