@@ -1,4 +1,4 @@
-package me.ifight.atom_ifght.utils;
+package me.ifight.utils;
 
 public class StringUtils {
     public static boolean isEmpty(String str){

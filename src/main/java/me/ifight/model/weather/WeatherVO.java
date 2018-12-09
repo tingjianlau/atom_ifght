@@ -1,9 +1,9 @@
-package me.ifight.atom_ifght.model.weather;
+package me.ifight.model.weather;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class Weather implements Serializable {
+public class WeatherVO implements Serializable {
     private static final long serialVersionUID = 1L;
     private String city;
     private String aqi;

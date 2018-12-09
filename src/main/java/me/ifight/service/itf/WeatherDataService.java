@@ -1,6 +1,6 @@
-package me.ifight.atom_ifght.service.itf;
+package me.ifight.service.itf;
 
-import me.ifight.atom_ifght.model.weather.WeatherResponse;
+import me.ifight.model.weather.WeatherVO;
 
 public interface WeatherDataService {
     /**
@@ -13,7 +13,7 @@ public interface WeatherDataService {
      * @param cityId
      * @return
      */
-    WeatherResponse getDataByCityId(String cityId);
+    WeatherVO getDataByCityId(String cityId);
 
     /**
      * 根据城市名称查询天气数据
@@ -21,5 +21,5 @@ public interface WeatherDataService {
      * @param cityName
      * @return
      */
-    WeatherResponse getDataByCityName(String cityName);
+    WeatherVO getDataByCityName(String cityName);
 }

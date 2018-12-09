@@ -1,4 +1,4 @@
-package me.ifight.atom_ifght;
+package me.ifight;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

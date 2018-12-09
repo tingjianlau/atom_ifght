@@ -1,14 +1,14 @@
-package me.ifight.atom_ifght.model.weather;
+package me.ifight.model.weather;
 
 import java.io.Serializable;
 
-public class Forecast implements Serializable {
+public class Yesterday implements Serializable {
     private static final long serialVersionUID = 1L;
     private String date;
     private String high;
-    private String fengxiang;
+    private String fx;
     private String low;
-    private String fengli;
+    private String fl;
     private String type;
 
     public String getDate() {
@@ -27,12 +27,12 @@ public class Forecast implements Serializable {
         this.high = high;
     }
 
-    public String getFengxiang() {
-        return fengxiang;
+    public String getFx() {
+        return fx;
     }
 
-    public void setFengxiang(String fengxiang) {
-        this.fengxiang = fengxiang;
+    public void setFx(String fx) {
+        this.fx = fx;
     }
 
     public String getLow() {
@@ -43,12 +43,12 @@ public class Forecast implements Serializable {
         this.low = low;
     }
 
-    public String getFengli() {
-        return fengli;
+    public String getFl() {
+        return fl;
     }
 
-    public void setFengli(String fengli) {
-        this.fengli = fengli;
+    public void setFl(String fl) {
+        this.fl = fl;
     }
 
     public String getType() {

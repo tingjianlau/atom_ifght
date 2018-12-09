@@ -1,8 +1,9 @@
-package me.ifight.atom_ifght.service.impl;
+package me.ifight.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import me.ifight.atom_ifght.model.weather.WeatherResponse;
-import me.ifight.atom_ifght.service.itf.WeatherDataService;
+import me.ifight.model.weather.WeatherResponse;
+import me.ifight.model.weather.WeatherVO;
+import me.ifight.service.itf.WeatherDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,18 +19,19 @@ public class WeatherDataServiceImpl implements WeatherDataService {
     private final String WEATHER_API = "http://wthrcdn.etouch.cn/weather_mini";
 
     @Override
-    public WeatherResponse getDataByCityId(String cityId) {
+    public WeatherVO getDataByCityId(String cityId) {
         String uri = WEATHER_API + "?citykey=" + cityId;
+        System.out.println(uri);
         return this.doGetWeatherData(uri);
     }
 
     @Override
-    public WeatherResponse getDataByCityName(String cityName) {
+    public WeatherVO getDataByCityName(String cityName) {
         String uri = WEATHER_API + "?city=" + cityName;
         return this.doGetWeatherData(uri);
     }
 
-    private WeatherResponse doGetWeatherData(String uri) {
+    private WeatherVO doGetWeatherData(String uri) {
         ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
         String strBody = null;
 
@@ -46,6 +48,6 @@ public class WeatherDataServiceImpl implements WeatherDataService {
             e.printStackTrace();
         }
 
-        return weather;
+        return weather.getData();
     }
 }

@@ -1,19 +1,19 @@
-package me.ifight.atom_ifght.model.weather;
+package me.ifight.model.weather;
 
 public class WeatherResponse {
     private static final long serialVersionUID = 1L;
 
-    private Weather data; // 消息数据
+    private WeatherVO data; // 消息数据
 
     private String status; // 消息状态
 
     private String desc; // 消息描述
 
-    public Weather getData() {
+    public WeatherVO getData() {
         return data;
     }
 
-    public void setData(Weather data) {
+    public void setData(WeatherVO data) {
         this.data = data;
     }
 

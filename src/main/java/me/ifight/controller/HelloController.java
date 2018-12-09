@@ -1,4 +1,4 @@
-package me.ifight.atom_ifght.controller;
+package me.ifight.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
