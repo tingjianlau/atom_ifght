@@ -34,5 +34,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
     // 添加  Apache HttpClient 依赖
     compile('org.apache.httpcomponents:httpclient:4.5.3')
+    // 热启动，热部署依赖包
+    compile('org.springframework.boot:spring-boot-devtools')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
