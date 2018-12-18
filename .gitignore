@@ -20,4 +20,5 @@
 /gradle/
 /.gradle/
 *.swp
+/data/
 
