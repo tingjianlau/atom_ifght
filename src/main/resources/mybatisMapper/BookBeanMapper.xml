@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.ifight.dao.BookBeanDao">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="me.ifight.model.BookBean">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="link" property="link"/>
+        <result column="image_url" property="imageUrl"/>
+        <result column="introduction" property="introduction"/>
+        <result column="author" property="author"/>
+        <result column="category" property="category"/>
+        <result column="score" property="score"/>
+        <result column="count" property="count"/>
+        <result column="baidu_link" property="baiduLink"/>
+        <result column="baidu_pwd" property="baiduPwd"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        name,
+        link,
+        image_url,
+        introduction,
+        author,
+        category,
+        score,
+        count,
+        baidu_link,
+        baidu_pwd
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO books
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.name != null"> name, </if>
+            <if test="pojo.link != null"> link, </if>
+            <if test="pojo.imageUrl != null"> image_url, </if>
+            <if test="pojo.introduction != null"> introduction, </if>
+            <if test="pojo.author != null"> author, </if>
+            <if test="pojo.category != null"> category, </if>
+            <if test="pojo.score != null"> score, </if>
+            <if test="pojo.count != null"> count, </if>
+            <if test="pojo.baiduLink != null"> baidu_link, </if>
+            <if test="pojo.baiduPwd != null"> baidu_pwd, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.name != null"> #{pojo.name}, </if>
+            <if test="pojo.link != null"> #{pojo.link}, </if>
+            <if test="pojo.imageUrl != null"> #{pojo.imageUrl}, </if>
+            <if test="pojo.introduction != null"> #{pojo.introduction}, </if>
+            <if test="pojo.author != null"> #{pojo.author}, </if>
+            <if test="pojo.category != null"> #{pojo.category}, </if>
+            <if test="pojo.score != null"> #{pojo.score}, </if>
+            <if test="pojo.count != null"> #{pojo.count}, </if>
+            <if test="pojo.baiduLink != null"> #{pojo.baiduLink}, </if>
+            <if test="pojo.baiduPwd != null"> #{pojo.baiduPwd}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO books(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.link},
+            #{pojo.imageUrl},
+            #{pojo.introduction},
+            #{pojo.author},
+            #{pojo.category},
+            #{pojo.score},
+            #{pojo.count},
+            #{pojo.baiduLink},
+            #{pojo.baiduPwd}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE books
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.name != null"> name = #{pojo.name}, </if>
+            <if test="pojo.link != null"> link = #{pojo.link}, </if>
+            <if test="pojo.imageUrl != null"> image_url = #{pojo.imageUrl}, </if>
+            <if test="pojo.introduction != null"> introduction = #{pojo.introduction}, </if>
+            <if test="pojo.author != null"> author = #{pojo.author}, </if>
+            <if test="pojo.category != null"> category = #{pojo.category}, </if>
+            <if test="pojo.score != null"> score = #{pojo.score}, </if>
+            <if test="pojo.count != null"> count = #{pojo.count}, </if>
+            <if test="pojo.baiduLink != null"> baidu_link = #{pojo.baiduLink}, </if>
+            <if test="pojo.baiduPwd != null"> baidu_pwd = #{pojo.baiduPwd} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM books
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.name != null"> AND name = #{pojo.name} </if>
+            <if test="pojo.link != null"> AND link = #{pojo.link} </if>
+            <if test="pojo.imageUrl != null"> AND image_url = #{pojo.imageUrl} </if>
+            <if test="pojo.introduction != null"> AND introduction = #{pojo.introduction} </if>
+            <if test="pojo.author != null"> AND author = #{pojo.author} </if>
+            <if test="pojo.category != null"> AND category = #{pojo.category} </if>
+            <if test="pojo.score != null"> AND score = #{pojo.score} </if>
+            <if test="pojo.count != null"> AND count = #{pojo.count} </if>
+            <if test="pojo.baiduLink != null"> AND baidu_link = #{pojo.baiduLink} </if>
+            <if test="pojo.baiduPwd != null"> AND baidu_pwd = #{pojo.baiduPwd} </if>
+        </where>
+        LIMIT 1000 
+    </select>
+    <select id="queryBookById" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from books where id = #{id}
+    </select>
+
+
+    <!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM books where id = #{pojo.id}
+    </delete>
+</mapper>

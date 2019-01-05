@@ -1,6 +1,6 @@
 package me.ifight.service.impl;
 
-import me.ifight.dao.UserMapper;
+import me.ifight.dao.UserDao;
 import me.ifight.model.UserVO;
 import me.ifight.service.itf.IUserService;
 import org.slf4j.Logger;
@@ -13,11 +13,11 @@ public class UserService implements IUserService {
     private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
-    private UserMapper userMapper;
+    private UserDao userDao;
 
     @Override
     public UserVO queryUserById(int id) {
-        UserVO userVO = userMapper.getUserById(id);
+        UserVO userVO = userDao.getUserById(id);
 
         if(userVO != null){
             logger.info(userVO.toString());
@@ -30,7 +30,7 @@ public class UserService implements IUserService {
 
     @Override
     public boolean addUser(UserVO userVO) {
-        int insertNum = userMapper.addUser(userVO); // 返回值为插入的条数
+        int insertNum = userDao.addUser(userVO); // 返回值为插入的条数
         logger.info("#addUser, insertNum: " + insertNum);
         logger.info("#addUser, insertID: " + userVO.getId());
 

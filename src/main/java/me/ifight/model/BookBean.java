@@ -2,7 +2,7 @@ package me.ifight.model;
 
 import java.util.List;
 
-public class BookVO {
+public class BookBean {
     private String id;
     private String name;
     private String link;
@@ -10,10 +10,10 @@ public class BookVO {
     private String introduction;
     private String author;
     private String category;
-    private double douBanScore;
-    private int douBanCount;
-    private String baiduNetDiskLink;
-    private String baiduNetDiskPwd;
+    private double score;
+    private int count;
+    private String baiduLink;
+    private String baiduPwd;
     private List<String> tag;
 
     public String getId() {
@@ -72,28 +72,28 @@ public class BookVO {
         this.category = category;
     }
 
-    public double getDouBanScore() {
-        return douBanScore;
+    public double getScore() {
+        return score;
     }
 
-    public void setDouBanScore(double douBanScore) {
-        this.douBanScore = douBanScore;
+    public void setScore(double score) {
+        this.score = score;
     }
 
-    public String getBaiduNetDiskLink() {
-        return baiduNetDiskLink;
+    public String getBaiduLink() {
+        return baiduLink;
     }
 
-    public void setBaiduNetDiskLink(String baiduNetDiskLink) {
-        this.baiduNetDiskLink = baiduNetDiskLink;
+    public void setBaiduLink(String baiduLink) {
+        this.baiduLink = baiduLink;
     }
 
-    public String getBaiduNetDiskPwd() {
-        return baiduNetDiskPwd;
+    public String getBaiduPwd() {
+        return baiduPwd;
     }
 
-    public void setBaiduNetDiskPwd(String baiduNetDiskPwd) {
-        this.baiduNetDiskPwd = baiduNetDiskPwd;
+    public void setBaiduPwd(String baiduPwd) {
+        this.baiduPwd = baiduPwd;
     }
 
     public List<String> getTag() {
@@ -104,11 +104,11 @@ public class BookVO {
         this.tag = tag;
     }
 
-    public int getDouBanCount() {
-        return douBanCount;
+    public int getCount() {
+        return count;
     }
 
-    public void setDouBanCount(int douBanCount) {
-        this.douBanCount = douBanCount;
+    public void setCount(int count) {
+        this.count = count;
     }
 }

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.ifight.dao.FavoritesBeanDao">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="me.ifight.model.FavoritesBean">
+        <result column="id" property="id"/>
+        <result column="site_url" property="siteUrl"/>
+        <result column="site_title" property="siteTitle"/>
+        <result column="add_time" property="addTime"/>
+        <result column="category" property="catId"/>
+        <result column="click_count" property="clickCount"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="level" property="levelId"/>
+        <result column="user_name" property="userName"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        site_url,
+        site_title,
+        add_time,
+        category,
+        click_count,
+        update_time,
+        level,
+        user_name
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO favorites
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.siteUrl != null"> site_url, </if>
+            <if test="pojo.siteTitle != null"> site_title, </if>
+            <if test="pojo.addTime != null"> add_time, </if>
+            <if test="pojo.category != null"> category, </if>
+            <if test="pojo.clickCount != null"> click_count, </if>
+            <if test="pojo.updateTime != null"> update_time, </if>
+            <if test="pojo.level != null"> level, </if>
+            <if test="pojo.userName!= null"> user_name, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.siteUrl != null"> #{pojo.siteUrl}, </if>
+            <if test="pojo.siteTitle != null"> #{pojo.siteTitle}, </if>
+            <if test="pojo.addTime != null"> #{pojo.addTime}, </if>
+            <if test="pojo.category != null"> #{pojo.category}, </if>
+            <if test="pojo.clickCount != null"> #{pojo.clickCount}, </if>
+            <if test="pojo.updateTime != null"> #{pojo.updateTime}, </if>
+            <if test="pojo.level != null"> #{pojo.level}, </if>
+            <if test="pojo.userName!= null"> #{pojo.userName}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO favorites(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.siteUrl},
+            #{pojo.siteTitle},
+            #{pojo.addTime},
+            #{pojo.category},
+            #{pojo.clickCount},
+            #{pojo.updateTime},
+            #{pojo.level},
+            #{pojo.userName}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE favorites
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.siteUrl != null"> site_url = #{pojo.siteUrl}, </if>
+            <if test="pojo.siteTitle != null"> site_title = #{pojo.siteTitle}, </if>
+            <if test="pojo.addTime != null"> add_time = #{pojo.addTime}, </if>
+            <if test="pojo.category != null"> category = #{pojo.category}, </if>
+            <if test="pojo.clickCount != null"> click_count = #{pojo.clickCount}, </if>
+            <if test="pojo.level != null"> level = #{pojo.level}, </if>
+            <if test="pojo.userName!= null"> user_name = #{pojo.userName}, </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM favorites
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.siteUrl != null"> AND site_url = #{pojo.siteUrl} </if>
+            <if test="pojo.siteTitle != null"> AND site_title = #{pojo.siteTitle} </if>
+            <if test="pojo.addTime != null"> AND add_time = #{pojo.addTime} </if>
+            <if test="pojo.category != null"> AND category = #{pojo.category} </if>
+            <if test="pojo.clickCount != null"> AND click_count = #{pojo.clickCount} </if>
+            <if test="pojo.updateTime != null"> AND update_time = #{pojo.updateTime} </if>
+            <if test="pojo.level != null"> AND level = #{pojo.level} </if>
+            <if test="pojo.userName!= null"> AND user_name = #{pojo.userName} </if>
+        </where>
+        LIMIT 1000
+    </select>
+
+<!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM favorites where id = #{id} and user_name = #{userName}
+    </delete>
+
+    <select id="selectByPage" resultType="me.ifight.model.FavoritesBean">
+        SELECT f.id, f.site_url as siteUrl, f.site_title as siteTitle, f.add_time as addTime, f.category as catId,
+               f.click_count as clickCount, f.update_time as updateTime, f.level as levelId, f.user_name as userName,
+               c.category as category
+        FROM favorites f inner join fav_category c on f.category = c.id
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="count" resultType="long">
+        select count(*) from favorites
+    </select>
+
+    <select id="categories" resultType="me.ifight.model.FavCategory">
+        select * from fav_category
+    </select>
+</mapper>
+

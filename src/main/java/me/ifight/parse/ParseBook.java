@@ -1,6 +1,6 @@
 package me.ifight.parse;
 
-import me.ifight.model.BookVO;
+import me.ifight.model.BookBean;
 import me.ifight.service.impl.BookServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +14,13 @@ import java.util.List;
 public class ParseBook {
     private final static Logger logger = LoggerFactory.getLogger(ParseBook.class);
 
-    public static List<BookVO> parseHtmls(List<String> urls){
-        List<BookVO> bookVOList = new ArrayList<>();
+    public static List<BookBean> parseHtmls(List<String> urls){
+        List<BookBean> bookBeanList = new ArrayList<>();
         for (String url : urls){
-            bookVOList.add((new BookServiceImpl()).parseHtml(url));
+            bookBeanList.add((new BookServiceImpl()).parseHtml(url));
         }
 
-        return bookVOList;
+        return bookBeanList;
     }
 
     public static void main(String[] args) {
@@ -36,8 +36,13 @@ public class ParseBook {
         }
 
         Collections.sort(urls);
+        List<String> tmpUrls = urls.subList(0, 1);
         if (urls != null && !urls.isEmpty()){
-            List<BookVO> bookVOList = ParseBook.parseHtmls(urls);
+            List<BookBean> bookBeanList = ParseBook.parseHtmls(tmpUrls);
+
+            BookServiceImpl bookService = new BookServiceImpl();
+            bookService.insertList(bookBeanList);
         }
+
     }
 }

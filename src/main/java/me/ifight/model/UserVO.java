@@ -1,9 +1,14 @@
 package me.ifight.model;
 
+import java.util.List;
+
 public class UserVO {
     private String userName;
     private String id;
     private String pwd;
+    private String token;
+    private String avatar;
+    private List<String> roles;
 
     public String getUserName() {
         return userName;
@@ -32,5 +37,28 @@ public class UserVO {
     @Override
     public String toString(){
         return "{userId:" + this.id + ", userName:" + this.userName + ", pwd:" + this.pwd + "}";
+    }
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }

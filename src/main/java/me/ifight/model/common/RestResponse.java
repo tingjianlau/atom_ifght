@@ -1,9 +1,11 @@
 package me.ifight.model.common;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(description = "返回结果")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestResponse {
     @ApiModelProperty("状态码 0:成功")
     private int code;

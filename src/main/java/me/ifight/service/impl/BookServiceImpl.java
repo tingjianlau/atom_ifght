@@ -1,7 +1,8 @@
 package me.ifight.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import me.ifight.model.BookVO;
+import me.ifight.dao.BookBeanDao;
+import me.ifight.model.BookBean;
 import me.ifight.model.DouBanScore;
 import me.ifight.service.itf.IBookService;
 import me.ifight.utils.ParseHtmlUtils;
@@ -12,49 +13,81 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class BookServiceImpl implements IBookService {
     private static Logger logger = LoggerFactory.getLogger(ParseHtmlUtils.class);
 
+    @Autowired
+    private BookBeanDao bookBeanMapper;
+
     @Override
-    public BookVO parseHtml(String url) {
+    public int insert(BookBean pojo){
+        return bookBeanMapper.insert(pojo);
+    }
+
+    @Override
+    public int insertList(List< BookBean> pojos){
+        return bookBeanMapper.insertList(pojos);
+    }
+
+    @Override
+    public List<BookBean> select(BookBean pojo){
+        return bookBeanMapper.select(pojo);
+    }
+
+    @Override
+    public BookBean queryBookById(int id){
+        return bookBeanMapper.queryBookById(id);
+    }
+
+    @Override
+    public int update(BookBean pojo){
+        return bookBeanMapper.update(pojo);
+    }
+
+
+    @Override
+    public BookBean parseHtml(String url) {
         logger.info("To parse {}", url);
         File file = new File(url);
         Document doc = ParseHtmlUtils.parse(file);
-        BookVO bookVO = parseHtml(doc);
-        return bookVO;
+        BookBean bookBean = parseHtml(doc);
+        return bookBean;
     }
 
     @Override
-    public BookVO parseHtml(File file) {
+    public BookBean parseHtml(File file) {
         return null;
     }
 
-    public BookVO parseHtml(Document doc) {
+    public BookBean parseHtml(Document doc) {
         if (doc == null) {
             return null;
         }
 
-        BookVO bookVO = new BookVO();
+        BookBean bookBean = new BookBean();
         String title = doc.title();
-        parseTitle(title, bookVO);
+        parseTitle(title, bookBean);
 
-        bookVO.setImageUrl(getImageUrl(doc));
+        bookBean.setImageUrl(getImageUrl(doc));
 
         DouBanScore douBanScore = getDoubanScore(doc);
-        bookVO.setDouBanScore(douBanScore.getSocre());
-        bookVO.setDouBanCount(douBanScore.getCount());
+        bookBean.setScore(douBanScore.getSocre());
+        bookBean.setCount(douBanScore.getCount());
 
-        bookVO.setBaiduNetDiskPwd(getPwd(doc));
+        bookBean.setBaiduPwd(getPwd(doc));
 
-        bookVO.setBaiduNetDiskLink(getBaiduLink(doc));
+        bookBean.setBaiduLink(getBaiduLink(doc));
 
         String category = doc.select("[rel=category]").text();
-        bookVO.setCategory(category);
+        bookBean.setCategory(category);
 
         Elements tagEles = doc.select("[rel=tag]");
 
@@ -62,11 +95,11 @@ public class BookServiceImpl implements IBookService {
         for (Element tagEle : tagEles) {
             tags.add(tagEle.text());
         }
-        bookVO.setTag(tags);
+        bookBean.setTag(tags);
 
-        String json = JSON.toJSONString(bookVO);
+        String json = JSON.toJSONString(bookBean);
         logger.info("current book is : {}", json);
-        return bookVO;
+        return bookBean;
     }
 
     private String getImageUrl(Document doc) {
@@ -78,14 +111,14 @@ public class BookServiceImpl implements IBookService {
     }
 
     private String getBaiduLink(Document doc) {
-        Elements select = doc.select("[href*=http://pan.baidu.com]");
+        Elements select = doc.select("[href*=pan.baidu.com]");
         if (isNotEmpty(select)) {
             return select.get(0).attr("href");
         }
         return "";
     }
 
-    private void parseTitle(String title, BookVO bookVO) {
+    private void parseTitle(String title, BookBean bookBean) {
         if (StringUtil.isEmpty(title)) {
             return;
         }
@@ -95,8 +128,8 @@ public class BookServiceImpl implements IBookService {
         String bookName = (index1 == -1 && index2 == -1) ? "" : title.substring(index1 + 1, index2);
         String author = title.indexOf("（作者") == -1 ? "" : title.substring(index2 + 1, title.indexOf("（作者"));
 
-        bookVO.setAuthor(author);
-        bookVO.setName(bookName);
+        bookBean.setAuthor(author);
+        bookBean.setName(bookName);
     }
 
     private String getPwd(Document doc) {

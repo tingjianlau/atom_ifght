@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <!--你接口的包名是com.abc.dao,接口名是NameMapper.java，那么你的mapper.xml的namespace应该是com.abc.dao.NameMapper-->
 
-<mapper namespace="me.ifight.dao.UserMapper" >
+<mapper namespace="me.ifight.dao.UserDao" >
     <!--resultMap对应的是表与实体类的映射  - type 数据库表对应的实体类，别名或完整类名都可以-->
     <resultMap id="BaseResultMap" type="me.ifight.model.UserVO" >
         <!-- 结果集的主键 -->

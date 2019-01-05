@@ -20,4 +20,21 @@ public class ParseHtmlUtils {
 
         return doc;
     }
+
+    public static Document parse(String html){
+        Document doc = null;
+        try {
+            doc = Jsoup.parse(html);
+        }catch (Exception e){
+            logger.error("#parse, parse error, " + e);
+            return null;
+        }
+
+        return doc;
+    }
+
+    public static String getTitle(String html){
+        Document doc = parse(html);
+        return doc == null ? "" : doc.title();
+    }
 }
