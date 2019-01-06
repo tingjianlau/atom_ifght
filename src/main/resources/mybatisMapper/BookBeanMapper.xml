@@ -130,8 +130,9 @@
     </select>
 
 
-    <!--auto generated Code-->
+    <!--auto generated Code
     <delete id="delete">
         DELETE FROM books where id = #{pojo.id}
     </delete>
+    -->
 </mapper>

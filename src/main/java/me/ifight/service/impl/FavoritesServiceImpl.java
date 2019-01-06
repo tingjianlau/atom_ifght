@@ -25,7 +25,7 @@ public class FavoritesServiceImpl implements IFavoritesService {
     @Override
     public boolean insert(FavoritesBean pojo){
         logger.info("#insert, userName={}, siteUrl={}, level={}, category={}",
-                pojo.getUserName(), pojo.getSiteUrl(), pojo.getLevelId(), pojo.getCategory());
+                pojo.getUserName(), pojo.getSiteUrl(), pojo.getLevel(), pojo.getCategory());
 
         String siteUrl = pojo.getSiteUrl();
 

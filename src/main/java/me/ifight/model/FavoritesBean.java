@@ -24,7 +24,7 @@ public class FavoritesBean {
     @ApiModelProperty("上次点击时间")
     private String updateTime;
     @ApiModelProperty("优先级")
-    private int levelId;
+    private int level;
     @ApiModelProperty("用户")
     private String userName;
     @ApiModelProperty("置顶")
@@ -118,11 +118,11 @@ public class FavoritesBean {
         this.catId = catId;
     }
 
-    public int getLevelId() {
-        return levelId;
+    public int getLevel() {
+        return level;
     }
 
-    public void setLevelId(int levelId) {
-        this.levelId = levelId;
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

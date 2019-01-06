@@ -11,7 +11,7 @@
         <result column="category" property="catId"/>
         <result column="click_count" property="clickCount"/>
         <result column="update_time" property="updateTime"/>
-        <result column="level" property="levelId"/>
+        <result column="level" property="level"/>
         <result column="user_name" property="userName"/>
     </resultMap>
 

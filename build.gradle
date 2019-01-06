@@ -40,6 +40,8 @@ dependencies {
     compile('org.apache.httpcomponents:httpclient:4.5.3')
     // 热启动，热部署依赖包
     compile('org.springframework.boot:spring-boot-devtools')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('io.jsonwebtoken:jjwt:0.7.0')
     compile('io.springfox:springfox-swagger2:2.9.2')
     compile('io.springfox:springfox-swagger-ui:2.9.2')
     compile('com.alibaba:fastjson:1.2.54')
