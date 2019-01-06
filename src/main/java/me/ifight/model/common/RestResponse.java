@@ -56,6 +56,14 @@ public class RestResponse {
         return restResponse;
     }
 
+    public static RestResponse fail(Integer code, String message) {
+        RestResponse restResponse = new RestResponse();
+        restResponse.setCode(code);
+        restResponse.setMessage(message);
+
+        return restResponse;
+    }
+
     public static RestResponse fail(ResultCode resultCode, Object data) {
         RestResponse restResponse = new RestResponse();
         restResponse.setResultCode(resultCode);

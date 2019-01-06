@@ -10,7 +10,7 @@ public class TokenDetailImpl implements ITokenDetail {
     }
 
     @Override
-    public String getUserName(){
+    public String getUsername(){
         return this.userName;
     }
 }

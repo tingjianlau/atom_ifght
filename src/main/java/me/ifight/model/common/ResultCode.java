@@ -6,8 +6,8 @@ package me.ifight.model.common;
  */
 public enum ResultCode {
     /* 成功状态码 */
-    SUCCESS(0, "Request is successful"),
-    FAIL(1, "Request is failed");
+    SUCCESS(200, "Request is successful"),
+    FAIL(500, "Request is failed");
 
     private Integer code;
     private String message;

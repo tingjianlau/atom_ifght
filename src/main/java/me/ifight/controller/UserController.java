@@ -3,15 +3,24 @@ package me.ifight.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import me.ifight.model.LoginDetail;
+import me.ifight.model.RequestLoginUser;
 import me.ifight.model.UserVO;
 import me.ifight.model.common.RestResponse;
-import me.ifight.service.impl.UserService;
+import me.ifight.model.common.ResultCode;
+import me.ifight.service.impl.LoginServiceImpl;
+import me.ifight.service.impl.UserServiceImpl;
+import me.ifight.service.itf.ITokenDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 @Api(tags = "用户管理")
@@ -19,8 +28,14 @@ import java.util.Map;
 @RequestMapping("/api/user/")
 public class UserController {
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @Value("${jwt.header}")
+    private String tokenHeader;
+
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
+    @Autowired
+    private LoginServiceImpl loginService;
 
     @GetMapping("queryUserById")
     @ApiOperation("根据ID查找用户信息")
@@ -50,6 +65,7 @@ public class UserController {
         return isSuccess ? RestResponse.succuess() : RestResponse.fail("Insert Fail");
     }
 
+    /*
     @PostMapping("login")
     @ApiOperation("登录")
     public RestResponse login(@RequestBody Map<String, Object> map){
@@ -58,6 +74,43 @@ public class UserController {
         userVO.setToken("123456");
 
         return RestResponse.succuess(userVO);
+    }
+    */
+
+    @PostMapping("login")
+    @ApiOperation("登录")
+    public RestResponse login(@RequestBody @Valid RequestLoginUser requestLoginUser, BindingResult bindindResult){
+        logger.info("username={}, password={}", requestLoginUser.getUsername(), requestLoginUser.getPassword());
+        if (bindindResult.hasErrors()){
+            return RestResponse.fail("缺少参数或者参数格式不对");
+        }
+
+        LoginDetail loginDetail = loginService.getLoginDetail(requestLoginUser.getUsername());
+
+        RestResponse restResponse = checkAccount(requestLoginUser, loginDetail);
+
+        if (restResponse.getCode() == ResultCode.SUCCESS.code()){
+            Map<String, Object> map = new HashMap<>();
+            map.put(this.tokenHeader, loginService.generateToken((ITokenDetail) loginDetail));
+            restResponse.setData(map);
+        }
+
+        return restResponse;
+    }
+
+    private RestResponse checkAccount(RequestLoginUser requestLoginUser, LoginDetail loginDetail){
+        if (loginDetail == null){
+            return RestResponse.fail(403, "账号不存在");
+        }else {
+            if (loginDetail.enable() == false){
+                return RestResponse.fail(403, "账号在黑名单");
+            }
+            if (!loginDetail.getPassword().equals(requestLoginUser.getPassword())){
+                return RestResponse.fail(438, "密码错误");
+            }
+        }
+
+        return RestResponse.succuess();
     }
 
     @GetMapping("info")

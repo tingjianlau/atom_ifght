@@ -20,4 +20,21 @@
     <insert id="addUser" parameterType="me.ifight.model.UserVO" useGeneratedKeys="true" keyProperty="id">
         insert into users (user_name, password) values (#{userName}, #{pwd})
     </insert>
+
+    <select id="getUserDetail"  resultType="me.ifight.model.User">
+        SELECT
+            `user`.username,
+            `user`.`password`,
+            `user`.role_id,
+            `user`.enable,
+            `user`.last_password_change as lastPasswordChange,
+            `user`.enable,
+            role.auth as authorities
+        FROM
+            `user` ,
+            role
+        WHERE
+            `user`.role_id = role.role_id AND
+            `user`.username = #{username}
+    </select>
 </mapper>
