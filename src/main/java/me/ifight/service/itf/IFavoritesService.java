@@ -1,22 +1,25 @@
 package me.ifight.service.itf;
 
 import me.ifight.model.FavoritesBean;
+import me.ifight.model.WebSiteInfoVo;
 import me.ifight.model.common.PageModel;
 import me.ifight.model.common.PageVO;
 
 import java.util.List;
 
 public interface IFavoritesService {
-    public boolean insert(FavoritesBean pojo);
+    boolean insert(FavoritesBean pojo);
 
-    public int insertList(List< FavoritesBean> pojos);
+    int insertList(List< FavoritesBean> pojos);
 
-    public List<FavoritesBean> select(FavoritesBean pojo);
+    List<FavoritesBean> select(FavoritesBean pojo);
 
-    public int update(FavoritesBean pojo);
+    int update(FavoritesBean pojo);
 
-    public boolean delete(int id);
+    boolean delete(int id, String userName);
 
-    public PageVO select(PageModel pageModel);
+    PageVO select(String username, PageModel pageModel);
+
+    WebSiteInfoVo webSiteInfo(String url);
 }
 

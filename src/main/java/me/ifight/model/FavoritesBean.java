@@ -9,7 +9,7 @@ public class FavoritesBean {
     private int id;
     @ApiModelProperty("收藏网站")
     private String siteUrl;
-    @ApiModelProperty("收藏地址")
+    @ApiModelProperty("网址标题")
     private String siteTitle;
     @ApiModelProperty("收藏时间")
     private String addTime;
@@ -29,6 +29,8 @@ public class FavoritesBean {
     private String userName;
     @ApiModelProperty("置顶")
     private String topping;
+    @ApiModelProperty("webSite信息")
+    private WebSite webSite;
 
     public String getSiteUrl() {
         return siteUrl;
@@ -124,5 +126,13 @@ public class FavoritesBean {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public WebSite getWebSite() {
+        return webSite;
+    }
+
+    public void setWebSite(WebSite webSite) {
+        this.webSite = webSite;
     }
 }

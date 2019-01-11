@@ -1,5 +1,8 @@
 package me.ifight.config;
 
+import com.alibaba.fastjson.JSON;
+import me.ifight.model.common.RestResponse;
+import me.ifight.model.common.ResultCode;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -22,8 +25,9 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
         //返回json形式的错误信息
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/json");
+        httpServletResponse.setHeader("content-type", "text/html;charset=UTF-8");
 
-        httpServletResponse.getWriter().println("{\"code\":403,\"message\":\"小弟弟，你没有权限访问呀！\",\"data\":\"\"}");
+        httpServletResponse.getWriter().println(JSON.toJSONString(RestResponse.fail(ResultCode.ACCESS_DENIED)));
         httpServletResponse.getWriter().flush();
     }
 }

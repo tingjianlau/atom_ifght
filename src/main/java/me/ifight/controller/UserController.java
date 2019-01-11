@@ -11,6 +11,7 @@ import me.ifight.model.common.ResultCode;
 import me.ifight.service.impl.LoginServiceImpl;
 import me.ifight.service.impl.UserServiceImpl;
 import me.ifight.service.itf.ITokenDetail;
+import me.ifight.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,6 +93,7 @@ public class UserController {
         if (restResponse.getCode() == ResultCode.SUCCESS.code()){
             Map<String, Object> map = new HashMap<>();
             map.put(this.tokenHeader, loginService.generateToken((ITokenDetail) loginDetail));
+            map.put("username", loginDetail.getUsername());
             restResponse.setData(map);
         }
 
@@ -105,7 +107,8 @@ public class UserController {
             if (loginDetail.enable() == false){
                 return RestResponse.fail(403, "账号在黑名单");
             }
-            if (!loginDetail.getPassword().equals(requestLoginUser.getPassword())){
+            if (!UserUtils.match(requestLoginUser.getPassword(), loginDetail.getPassword())){
+                //if (!loginDetail.getPassword().equals(requestLoginUser.getPassword())){
                 return RestResponse.fail(438, "密码错误");
             }
         }

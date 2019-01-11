@@ -3,10 +3,10 @@ buildscript {
         springBootVersion = '2.1.1.RELEASE'
     }
     repositories {
-        //mavenCentral()
         maven { url "https://repo.spring.io/snapshot" }
         maven { url "https://repo.spring.io/milestone" }
         maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        mavenCentral()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -27,6 +27,7 @@ repositories {
     maven { url "https://repo.spring.io/snapshot" }
     maven { url "https://repo.spring.io/milestone" }
     maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    mavenCentral()
 }
 
 configurations {
@@ -52,5 +53,6 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     compile group: 'mysql', name: 'mysql-connector-java'
     compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }

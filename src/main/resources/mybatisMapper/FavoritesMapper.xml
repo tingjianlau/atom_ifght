@@ -3,8 +3,8 @@
 <mapper namespace="me.ifight.dao.FavoritesBeanDao">
 
 <!--auto generated Code-->
-    <resultMap id="AllColumnMap" type="me.ifight.model.FavoritesBean">
-        <result column="id" property="id"/>
+    <resultMap id="FavoritesResultMap" type="me.ifight.model.FavoritesBean">
+        <id column="id" property="id"/>
         <result column="site_url" property="siteUrl"/>
         <result column="site_title" property="siteTitle"/>
         <result column="add_time" property="addTime"/>
@@ -13,6 +13,15 @@
         <result column="update_time" property="updateTime"/>
         <result column="level" property="level"/>
         <result column="user_name" property="userName"/>
+        <association property="webSite" resultMap="WebSiteResultMap"/>
+    </resultMap>
+
+    <resultMap id="WebSiteResultMap" type="me.ifight.model.WebSite">
+        <id column="w_id" property="id"/>
+        <result column="domain" property="domain"/>
+        <result column="name" property="name"/>
+        <result column="alexa" property="alexa"/>
+        <result column="intro" property="intro"/>
     </resultMap>
 
 <!--auto generated Code-->
@@ -25,7 +34,8 @@
         click_count,
         update_time,
         level,
-        user_name
+        user_name,
+        web_site_id
     </sql>
 
 <!--auto generated Code-->
@@ -41,6 +51,7 @@
             <if test="pojo.updateTime != null"> update_time, </if>
             <if test="pojo.level != null"> level, </if>
             <if test="pojo.userName!= null"> user_name, </if>
+            <if test="pojo.webSite.id != null"> web_site_id, </if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -53,6 +64,7 @@
             <if test="pojo.updateTime != null"> #{pojo.updateTime}, </if>
             <if test="pojo.level != null"> #{pojo.level}, </if>
             <if test="pojo.userName!= null"> #{pojo.userName}, </if>
+            <if test="pojo.webSite.id != null"> #{pojo.webSite.id}, </if>
         </trim>
     </insert>
 
@@ -72,6 +84,7 @@
             #{pojo.updateTime},
             #{pojo.level},
             #{pojo.userName}
+            #{pojo.webSite.id}
             )
         </foreach>
     </insert>
@@ -93,7 +106,7 @@
     </update>
 
 <!--auto generated Code-->
-    <select id="select" resultMap="AllColumnMap">
+    <select id="select" resultMap="FavoritesResultMap">
         SELECT <include refid="all_column"/>
         FROM favorites
         <where>
@@ -115,11 +128,12 @@
         DELETE FROM favorites where id = #{id} and user_name = #{userName}
     </delete>
 
-    <select id="selectByPage" resultType="me.ifight.model.FavoritesBean">
-        SELECT f.id, f.site_url as siteUrl, f.site_title as siteTitle, f.add_time as addTime, f.category as catId,
-               f.click_count as clickCount, f.update_time as updateTime, f.level as levelId, f.user_name as userName,
-               c.category as category
+    <select id="selectByPage" resultMap="FavoritesResultMap">
+        SELECT f.*, w.domain, w.id as w_id, w.alexa, w.intro, w.name
         FROM favorites f inner join fav_category c on f.category = c.id
+        inner join web_site w on f.web_site_id = w.id
+        order by f.add_time desc
+        where user_name = #{userName}
         LIMIT #{offset}, #{limit}
     </select>
 

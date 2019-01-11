@@ -7,7 +7,11 @@ package me.ifight.model.common;
 public enum ResultCode {
     /* 成功状态码 */
     SUCCESS(200, "Request is successful"),
-    FAIL(500, "Request is failed");
+    FAIL(500, "Request is failed"),
+    TOKEN_INVALID(401, "Token is null or invalid"),
+    ACCESS_DENIED(403, "Access denied"),
+    FAIL4DELETE(50001, "Delete failed"),
+    FAIL4UPDATE(50002, "Update failed");
 
     private Integer code;
     private String message;

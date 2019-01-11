@@ -11,13 +11,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class TokenUtils {
+public class TokenUtils implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(TokenUtils.class);
 
     @Value("${jwt.secret}")
@@ -37,8 +38,6 @@ public class TokenUtils {
 
     private String generateToken(Map<String, Object> claims){
         try {
-            logger.info(this.secret);
-            logger.info(this.secret.getBytes("UTF-8").toString());
             return Jwts.builder()
                     .setClaims(claims)
                     .setExpiration(this.generateExpirationDate())
@@ -146,5 +145,19 @@ public class TokenUtils {
      */
     private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
         return (lastPasswordReset != null && created.before(lastPasswordReset));
+    }
+
+    public String refreshToken(String token){
+        String refreshedToken;
+        try {
+            Claims claims = getClaimsFromToken(token);
+            claims.put("created", this.generateCurrentDate());
+            refreshedToken = generateToken(claims);
+        } catch (Exception e){
+            logger.error("generate token error", e);
+            refreshedToken = null;
+        }
+
+        return refreshedToken;
     }
 }

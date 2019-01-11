@@ -18,7 +18,7 @@ public interface FavoritesBeanDao {
 
     int delete(@Param("id") int id, @Param("userName") String userName);
 
-    List<FavoritesBean> selectByPage(@Param("offset") int offset, @Param("limit") int limit);
+    List<FavoritesBean> selectByPage(@Param("userName") String username, @Param("offset") int offset, @Param("limit") int limit);
 
     long count();
 

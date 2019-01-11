@@ -1,0 +1,10 @@
+-- auto Generated on 2019-01-08 23:17:58 
+-- DROP TABLE IF EXISTS `web_site`; 
+CREATE TABLE web_site(
+    `id` INTEGER(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `domain` VARCHAR(50) NOT NULL DEFAULT '' COMMENT 'domain',
+    `name` VARCHAR(50) NOT NULL DEFAULT '' COMMENT 'name',
+    `alexa` INTEGER(12) NOT NULL DEFAULT -1 COMMENT 'alexa',
+    `intro` VARCHAR(50) NOT NULL DEFAULT '' COMMENT 'intro',
+    PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT 'web_site';

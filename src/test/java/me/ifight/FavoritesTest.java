@@ -1,7 +1,9 @@
 package me.ifight;
 
+import com.alibaba.fastjson.JSON;
 import me.ifight.dao.FavoritesBeanDao;
 import me.ifight.model.FavoritesBean;
+import me.ifight.model.WebSite;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -27,6 +29,11 @@ public class FavoritesTest {
         pojo.setSiteTitle("title");
         pojo.setId(0);
         pojo.setSiteUrl("www.ifight.me");
+        WebSite webSite = new WebSite();
+        webSite.setIntro("intor");
+        webSite.setDomain("domain");
+        webSite.setId(2672937);
+        pojo.setWebSite(webSite);
         int id = favoritesBeanDao.insert(pojo);
         System.out.println(id);
     }
@@ -39,12 +46,19 @@ public class FavoritesTest {
 
     @Test
     public void selectByPage(){
-        List<FavoritesBean> favoritesBeanList = favoritesBeanDao.selectByPage(2, 4);
+        List<FavoritesBean> favoritesBeanList = favoritesBeanDao.selectByPage(1, 4);
 
         logger.info("count={}", favoritesBeanList.size());
-        for (FavoritesBean favoritesBean : favoritesBeanList){
-            logger.info("id={}, url={}", favoritesBean.getId(), favoritesBean.getSiteUrl());
+        for (FavoritesBean favoritesBean : favoritesBeanList) {
+            logger.info("result={}", JSON.toJSONString(favoritesBean));
+            logger.info("website={}", JSON.toJSONString(favoritesBean.getWebSite()));
         }
     }
 
+    @Test
+    public void deleteTest(){
+        int num1 = favoritesBeanDao.delete(333, "admin");
+        int num2 = favoritesBeanDao.delete(21, "admin");
+        logger.info("num1={}, num2={}", num1, num2);
+    }
 }

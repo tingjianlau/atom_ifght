@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.ifight.dao.WebSiteDao">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="me.ifight.model.WebSite">
+        <result column="id" property="id"/>
+        <result column="domain" property="domain"/>
+        <result column="name" property="name"/>
+        <result column="alexa" property="alexa"/>
+        <result column="intro" property="intro"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        domain,
+        name,
+        alexa,
+        intro
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO web_site
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.domain != null"> domain, </if>
+            <if test="pojo.name != null"> name, </if>
+            <if test="pojo.alexa != null"> alexa, </if>
+            <if test="pojo.intro != null"> intro, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.domain != null"> #{pojo.domain}, </if>
+            <if test="pojo.name != null"> #{pojo.name}, </if>
+            <if test="pojo.alexa != null"> #{pojo.alexa}, </if>
+            <if test="pojo.intro != null"> #{pojo.intro}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO web_site(
+        domain,
+        name,
+        alexa,
+        intro
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.domain},
+            #{pojo.name},
+            #{pojo.alexa},
+            #{pojo.intro}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE web_site
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.domain != null"> domain = #{pojo.domain}, </if>
+            <if test="pojo.name != null"> name = #{pojo.name}, </if>
+            <if test="pojo.alexa != null"> alexa = #{pojo.alexa}, </if>
+            <if test="pojo.intro != null"> intro = #{pojo.intro} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+    <select id="queryByDomain" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from web_site
+        where domain like CONCAT('%', #{domain}, '%')
+    </select>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM web_site
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.domain != null"> AND domain = #{pojo.domain} </if>
+            <if test="pojo.name != null"> AND name = #{pojo.name} </if>
+            <if test="pojo.alexa != null"> AND alexa = #{pojo.alexa} </if>
+            <if test="pojo.intro != null"> AND intro = #{pojo.intro} </if>
+        </where>
+        LIMIT 1000 
+    </select>
+
+<!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM web_site where id = #{pojo.id}
+    </delete>
+</mapper>

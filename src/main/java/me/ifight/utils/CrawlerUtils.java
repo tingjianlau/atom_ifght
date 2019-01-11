@@ -18,6 +18,7 @@ public class CrawlerUtils {
     private static Logger logger = LoggerFactory.getLogger(CrawlerUtils.class);
 
     public static Document parse(String url){
+        logger.info("start to parse url={}, ", url);
         Document  document = null;
         try {
             document = Jsoup.connect(url)
@@ -32,6 +33,12 @@ public class CrawlerUtils {
         }
 
         return document;
+    }
+
+    public static String title(String url){
+        Document doc = parse(url);
+
+        return doc == null ? "" : doc.title();
     }
 
     public static String get(String url){
@@ -78,8 +85,9 @@ public class CrawlerUtils {
         }
     }
 
+
     public static void main(String[] args) {
-        logger.info(CrawlerUtils.parse("https://www.baidu.com").title());
+        //logger.info(CrawlerUtils.parse("https://www.baidu.com").title());
         //String html = CrawlerUtils.get("https://juejin.im/entry/5c196e02e51d456c7e3e9001");
         //logger.info(html);
 //        int max = 10276;
